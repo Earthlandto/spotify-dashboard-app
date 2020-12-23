@@ -4,22 +4,28 @@ import { rgba } from 'polished';
 
 const SongTrackWrapper = styled.a`
   display: flex;
+  align-items: center;
+  /* min-width: 15rem;
+  max-width: 21rem; */
+  width: 21rem;
+
   padding: 0.5rem;
-
-  border-radius: 8px;
-
-  min-width: 15rem;
-  max-width: 28rem;
-  transition: 0.1 background-color ease-in-out;
   box-shadow: 0 1px 0 0 ${rgba('#333', 0.12)};
   border: 1px solid ${rgba('#333', 0.12)};
+  border-radius: 8px;
+
+  @media (min-width: 768px) {
+    min-width: 15rem;
+    max-width: 21rem;
+  }
 `;
 
 const ImageWrapper = styled.div`
-  box-shadow: 0 0 0 1px ${rgba('#333', 0.05)};
-  border-radius: 4px;
   width: 4rem;
   height: 4rem;
+
+  box-shadow: 0 0 0 1px ${rgba('#333', 0.05)};
+  border-radius: 4px;
 
   img {
     border-radius: 4px;

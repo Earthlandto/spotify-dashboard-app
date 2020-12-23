@@ -4,10 +4,15 @@ import styled from 'styled-components';
 
 const Title = styled.h1`
   color: black;
-  font-size: 4rem;
+  font-size: 1.8rem;
+  font-weight: bold;
   text-align: center;
 
-  font-weight: 500;
+  @media (min-width: 768px) {
+    flex-direction: column;
+    font-size: 4rem;
+    font-weight: 500;
+  }
 
   strong {
     color: #1db954;
