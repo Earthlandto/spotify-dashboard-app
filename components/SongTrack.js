@@ -11,15 +11,18 @@ const SongTrackWrapper = styled.a`
   min-width: 15rem;
   max-width: 28rem;
   transition: 0.1 background-color ease-in-out;
+  box-shadow: 0 1px 0 0 ${rgba('#333', 0.12)};
+  border: 1px solid ${rgba('#333', 0.12)};
+`;
 
-  &:hover {
-    background-color: ${rgba('#1db954', 0.25)};
-  }
+const ImageWrapper = styled.div`
+  box-shadow: 0 0 0 1px ${rgba('#333', 0.05)};
+  border-radius: 4px;
+  width: 4rem;
+  height: 4rem;
 
   img {
     border-radius: 4px;
-    width: 4rem;
-    height: 4rem;
   }
 `;
 
@@ -50,12 +53,14 @@ export default function SongTrack({ track }) {
       target="_blank"
       rel="noopener noreferrer"
     >
-      <Image
-        alt="Spotify"
-        height={64}
-        width={64}
-        src={albumImageUrl || '/static/images/track-placeholder.jpg'}
-      />
+      <ImageWrapper>
+        <Image
+          alt="Spotify"
+          height={64}
+          width={64}
+          src={albumImageUrl || '/static/images/track-placeholder.jpg'}
+        />
+      </ImageWrapper>
       <SongInfoWrapper>
         <span>{title || 'Loading...'}</span>
         <span>{artist}</span>

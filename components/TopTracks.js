@@ -20,8 +20,10 @@ const TopTracksWrapper = styled.div`
 `;
 
 const StyledSongTrack = styled.div`
-  flex-basis: 50%;
+  flex-basis: 47%;
   position: relative;
+
+  margin: 0 0 1.5% 1.5%;
 `;
 
 const StyledRanking = styled.span`
