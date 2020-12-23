@@ -68,7 +68,7 @@ export default function SongTrack({ track }) {
         />
       </ImageWrapper>
       <SongInfoWrapper>
-        <span>{title || 'Loading...'}</span>
+        <span>{title || 'Playback stopped'}</span>
         <span>{artist}</span>
       </SongInfoWrapper>
     </SongTrackWrapper>
