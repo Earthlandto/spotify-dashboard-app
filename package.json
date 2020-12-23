@@ -1,5 +1,5 @@
 {
-  "name": "test-next-app",
+  "name": "spotify-dashboard-app",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,7 +9,16 @@
   },
   "dependencies": {
     "next": "10.0.4",
+    "normalize.css": "^8.0.1",
+    "polished": "^4.0.5",
+    "querystring": "^0.2.0",
     "react": "17.0.1",
-    "react-dom": "17.0.1"
+    "react-dom": "17.0.1",
+    "spotify-sdk": "1.0.0-beta2",
+    "styled-components": "^5.2.1",
+    "swr": "^0.3.11"
+  },
+  "devDependencies": {
+    "babel-plugin-styled-components": "^1.12.0"
   }
 }
