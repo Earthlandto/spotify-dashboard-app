@@ -23,7 +23,7 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-          <link rel="icon" href="/favicon.ico" />
+          <link rel="icon" href="/static/favicons/favicon.ico" />
           {/* Step 5: Output the styles in the head  */}
           {this.props.styleTags}
         </Head>
