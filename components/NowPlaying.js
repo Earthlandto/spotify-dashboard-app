@@ -1,6 +1,6 @@
 import useSWR from 'swr';
 import fetcher from '../lib/fetcher';
-import SongTrack from '../components/SongTrack';
+import InfoCard from '../components/InfoCard';
 import styled from 'styled-components';
 
 const NowPlayingWrapper = styled.div`
@@ -20,15 +20,21 @@ const Title = styled.h3`
 export default function NowPlaying() {
   const { data } = useSWR('/api/now-playing', fetcher);
 
-  if (!data) {
-    return null;
-  }
+  const currentTrack = data && (
+    <NowPlayingWrapper>
+      <InfoCard
+        imageUrl={data.albumImageUrl}
+        title={data.title || 'Playback stopped'}
+        subtitle={data.artist}
+        url={data.songUrl}
+      />
+    </NowPlayingWrapper>
+  );
+
   return (
     <>
       <Title>Now playing</Title>
-      <NowPlayingWrapper>
-        <SongTrack track={data || {}} />
-      </NowPlayingWrapper>
+      {currentTrack}
     </>
   );
 }

@@ -1,6 +1,6 @@
 import useSWR from 'swr';
 import fetcher from '../lib/fetcher';
-import SongTrack from '../components/SongTrack';
+import InfoCard from '../components/InfoCard';
 import styled from 'styled-components';
 
 const Title = styled.h3`
@@ -24,7 +24,7 @@ const TopTracksWrapper = styled.div`
   }
 `;
 
-const StyledSongTrack = styled.div`
+const StyledInfoCard = styled.div`
   display: flex;
   justify-content: center;
 
@@ -39,20 +39,23 @@ const StyledSongTrack = styled.div`
 export default function TopTracks() {
   const { data } = useSWR('/api/top-tracks', fetcher);
 
-  if (!data) {
-    return null;
-  }
+  const trackList =
+    data &&
+    data.tracks.map((track) => (
+      <StyledInfoCard key={track.songUrl}>
+        <InfoCard
+          imageUrl={track.albumImageUrl}
+          title={track.title || 'Playback stopped'}
+          subtitle={track.artist}
+          url={track.songUrl}
+        />
+      </StyledInfoCard>
+    ));
 
   return (
     <>
       <Title>Your top songs</Title>
-      <TopTracksWrapper>
-        {data.tracks.map((track, index) => (
-          <StyledSongTrack key={track.songUrl}>
-            <SongTrack track={track} />
-          </StyledSongTrack>
-        ))}
-      </TopTracksWrapper>
+      <TopTracksWrapper>{trackList}</TopTracksWrapper>
     </>
   );
 }
