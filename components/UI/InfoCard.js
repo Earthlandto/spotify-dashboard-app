@@ -12,6 +12,12 @@ const StyledCard = styled.a`
   border: 1px solid ${rgba('#333', 0.12)};
   border-radius: 8px;
 
+  transition: 0.1s border-color ease-in-out;
+
+  &:hover {
+    border-color: #1db954;
+  }
+
   @media (min-width: 768px) {
     min-width: 15rem;
     max-width: 21rem;
