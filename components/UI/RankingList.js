@@ -13,12 +13,6 @@ const StyledRankingList = styled.div`
   justify-content: center;
 
   margin: 0 auto;
-
-  @media (min-width: 768px) {
-    max-width: 60vw;
-    flex-wrap: wrap;
-    flex-direction: row;
-  }
 `;
 
 const RankingItem = styled.div`
@@ -28,8 +22,7 @@ const RankingItem = styled.div`
   margin-bottom: 0.5rem;
 
   @media (min-width: 768px) {
-    margin: 0 0 1.5% 1.5%;
-    display: block;
+    margin-bottom: 0.75rem;
   }
 `;
 
@@ -39,9 +32,9 @@ export default function RankingList({ title, children }) {
   ));
 
   return (
-    <RankingItem>
+    <div>
       <Title>{title}</Title>
       <StyledRankingList>{items}</StyledRankingList>
-    </RankingItem>
+    </div>
   );
 }

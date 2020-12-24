@@ -19,6 +19,20 @@ const Title = styled.h1`
   }
 `;
 
+const StyledRankings = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: center;
+
+    & > * + * {
+      margin-left: 1.25rem;
+    }
+  }
+`;
+
 export default function Home() {
   return (
     <div>
@@ -29,8 +43,10 @@ export default function Home() {
 
         <NowPlaying />
 
-        <TopTracks />
-        <TopArtists />
+        <StyledRankings>
+          <TopTracks />
+          <TopArtists />
+        </StyledRankings>
       </main>
     </div>
   );
