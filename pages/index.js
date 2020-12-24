@@ -1,5 +1,6 @@
 import NowPlaying from '../components/NowPlaying';
 import TopTracks from '../components/TopTracks';
+import TopArtists from '../components/TopArtists';
 import styled from 'styled-components';
 
 const Title = styled.h1`
@@ -29,6 +30,7 @@ export default function Home() {
         <NowPlaying />
 
         <TopTracks />
+        <TopArtists />
       </main>
     </div>
   );
