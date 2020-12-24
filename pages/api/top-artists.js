@@ -1,7 +1,8 @@
 import { getTopArtists } from '../../lib/spotify';
 
-export default async (_, res) => {
-  const response = await getTopArtists('short_term', 10);
+export default async (req, res) => {
+  const { period, maxCount } = req.query;
+  const response = await getTopArtists(period, maxCount);
   const { items } = await response.json();
 
   const artists = items.map((artist) => ({
