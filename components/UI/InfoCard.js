@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Image from 'next/image';
 import { rgba } from 'polished';
 
@@ -25,8 +25,10 @@ const StyledCard = styled.a`
 `;
 
 const ImageWrapper = styled.div`
-  width: 4rem;
-  height: 4rem;
+  width: 5rem;
+  height: 5rem;
+
+  flex-shrink: 0;
 
   box-shadow: 0 0 0 1px ${rgba('#333', 0.05)};
   border-radius: 4px;
@@ -43,33 +45,48 @@ const InfoWrapper = styled.div`
   justify-content: center;
   flex: 1;
 
-  padding: 0.5rem 1rem;
+  padding: 0 0.5rem 0 1rem;
+`;
 
-  span {
-    display: block;
-  }
+const Text = styled.span`
+  display: block;
+  font-size: 1rem;
 
-  span + span {
+  ${({ clipText }) =>
+    clipText
+      ? css({
+          maxWidth: '13.5rem',
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+        })
+      : null};
+
+  & + & {
     padding-top: 0.25rem;
     font-style: italic;
+
+    @media (min-width: 768px) {
+      font-size: 0.875rem;
+    }
   }
 `;
 
 export default function InfoCard({ imageUrl, url, title, subtitle }) {
-  const subtitleElem = subtitle && <span>{subtitle}</span>;
+  const subtitleText = subtitle && <Text clipText>{subtitle}</Text>;
   return (
     <StyledCard href={url || '#'} target="_blank" rel="noopener noreferrer">
       <ImageWrapper>
         <Image
           alt="Spotify"
-          height={64}
-          width={64}
+          height={80}
+          width={80}
           src={imageUrl || '/static/images/track-placeholder.jpg'}
         />
       </ImageWrapper>
       <InfoWrapper>
-        <span>{title}</span>
-        {subtitleElem}
+        <Text alt={title}>{title}</Text>
+        {subtitleText}
       </InfoWrapper>
     </StyledCard>
   );
