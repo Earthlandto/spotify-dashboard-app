@@ -1,3 +1,4 @@
+import React from 'react';
 import useSWR from 'swr';
 import fetcher from '../lib/fetcher';
 import RankingList from './UI/RankingList';

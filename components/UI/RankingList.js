@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import Title from './Title.styled';
 import Spinner from './Spinner';
