@@ -1,23 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react';
 import useSWR from 'swr';
 import fetcher from '../lib/fetcher';
 import RankingList from './UI/RankingList';
 import InfoCard from './UI/InfoCard';
 import querystring from 'querystring';
+import Title from './UI/Title.styled';
+import TopRankingButtons from './TopRankingButtons';
+import styled from 'styled-components';
+
+const StyledColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const StyledHeader = styled.div`
+  margin: 1.5rem 0 1rem;
+  min-width: 21rem;
+
+  ${Title} {
+    margin: 0;
+  }
+`;
 
 export default function TopTracks() {
-  const queryParams = querystring.stringify({
-    period: 'long_term',
-    maxCount: '5',
+  const [options, setOptions] = useState({
+    limit: 5,
+    period: 'short_term',
   });
+  const queryParams = querystring.stringify(options);
   const { data } = useSWR(`/api/top-artists?${queryParams}`, fetcher);
-  const title = (
-    <>
-      Your top <strong>artists</strong>
-    </>
+
+  const header = (
+    <StyledHeader>
+      <Title>
+        Your top <strong>artists</strong>
+      </Title>
+      <TopRankingButtons
+        defaultLimit={options.limit}
+        defaultPeriod={options.period}
+        onChange={setOptions}
+      />
+    </StyledHeader>
   );
 
-  const trackList =
+  const artistList =
     data &&
     data.artists.map((artist, index) => (
       <InfoCard
@@ -29,10 +55,9 @@ export default function TopTracks() {
     ));
 
   return (
-    <>
-      <RankingList title={title} isLoading={!data}>
-        {trackList}
-      </RankingList>
-    </>
+    <StyledColumn>
+      {header}
+      <RankingList isLoading={!data}>{artistList}</RankingList>
+    </StyledColumn>
   );
 }
