@@ -1,6 +1,6 @@
 import useSWR from 'swr';
 import fetcher from '../lib/fetcher';
-import InfoCard from '../components/InfoCard';
+import InfoCard from './UI/InfoCard';
 import styled from 'styled-components';
 
 const NowPlayingWrapper = styled.div`
