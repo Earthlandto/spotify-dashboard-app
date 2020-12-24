@@ -24,6 +24,7 @@ const RankingItem = styled.div`
 `;
 
 export default function RankingList({ title, isLoading = false, children }) {
+  const header = title && <Title>{title}</Title>;
   const items = children?.map((item, index) => (
     <RankingItem key={index}>{item}</RankingItem>
   ));
@@ -36,7 +37,7 @@ export default function RankingList({ title, isLoading = false, children }) {
 
   return (
     <div>
-      <Title>{title}</Title>
+      {header}
       {content}
     </div>
   );
