@@ -2,11 +2,9 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import { rgba } from 'polished';
 
-const SongTrackWrapper = styled.a`
+const StyledCard = styled.a`
   display: flex;
   align-items: center;
-  /* min-width: 15rem;
-  max-width: 21rem; */
   width: 21rem;
 
   padding: 0.5rem;
@@ -32,7 +30,7 @@ const ImageWrapper = styled.div`
   }
 `;
 
-const SongInfoWrapper = styled.div`
+const InfoWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -51,26 +49,22 @@ const SongInfoWrapper = styled.div`
   }
 `;
 
-export default function SongTrack({ track }) {
-  const { albumImageUrl, songUrl, title, artist } = track;
+export default function InfoCard({ imageUrl, url, title, subtitle }) {
+  const subtitleElem = subtitle && <span>{subtitle}</span>;
   return (
-    <SongTrackWrapper
-      href={songUrl || '#'}
-      target="_blank"
-      rel="noopener noreferrer"
-    >
+    <StyledCard href={url || '#'} target="_blank" rel="noopener noreferrer">
       <ImageWrapper>
         <Image
           alt="Spotify"
           height={64}
           width={64}
-          src={albumImageUrl || '/static/images/track-placeholder.jpg'}
+          src={imageUrl || '/static/images/track-placeholder.jpg'}
         />
       </ImageWrapper>
-      <SongInfoWrapper>
-        <span>{title || 'Playback stopped'}</span>
-        <span>{artist}</span>
-      </SongInfoWrapper>
-    </SongTrackWrapper>
+      <InfoWrapper>
+        <span>{title}</span>
+        {subtitleElem}
+      </InfoWrapper>
+    </StyledCard>
   );
 }
