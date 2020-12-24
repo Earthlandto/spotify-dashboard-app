@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Title from './Title.styled';
+import Spinner from './Spinner';
 
 const StyledRankingList = styled.div`
   display: flex;
@@ -21,15 +22,21 @@ const RankingItem = styled.div`
   }
 `;
 
-export default function RankingList({ title, children }) {
+export default function RankingList({ title, isLoading = false, children }) {
   const items = children?.map((item, index) => (
     <RankingItem key={index}>{item}</RankingItem>
   ));
 
+  const content = isLoading ? (
+    <Spinner size="large" />
+  ) : (
+    <StyledRankingList>{items}</StyledRankingList>
+  );
+
   return (
     <div>
       <Title>{title}</Title>
-      <StyledRankingList>{items}</StyledRankingList>
+      {content}
     </div>
   );
 }

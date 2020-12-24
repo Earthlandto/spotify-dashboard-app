@@ -24,7 +24,9 @@ export default function TopTracks() {
 
   return (
     <>
-      <RankingList title={title}>{trackList}</RankingList>
+      <RankingList title={title} isLoading={!data}>
+        {trackList}
+      </RankingList>
     </>
   );
 }

@@ -22,6 +22,7 @@ const StyledRankings = styled.div`
   @media (min-width: 768px) {
     flex-direction: row;
     justify-content: center;
+    min-width: 20rem;
 
     & > * + * {
       margin-left: 1.25rem;
