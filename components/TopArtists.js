@@ -5,6 +5,11 @@ import InfoCard from './UI/InfoCard';
 
 export default function TopTracks() {
   const { data } = useSWR('/api/top-artists', fetcher);
+  const title = (
+    <>
+      Your top <strong>artists</strong>
+    </>
+  );
 
   const trackList =
     data &&
@@ -19,7 +24,7 @@ export default function TopTracks() {
 
   return (
     <>
-      <RankingList title="Your top artists">{trackList}</RankingList>
+      <RankingList title={title}>{trackList}</RankingList>
     </>
   );
 }

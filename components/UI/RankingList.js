@@ -1,10 +1,5 @@
 import styled from 'styled-components';
-
-const Title = styled.h3`
-  text-align: center;
-  font-size: 1.75rem;
-  font-weight: 500;
-`;
+import Title from './Title.styled';
 
 const StyledRankingList = styled.div`
   display: flex;

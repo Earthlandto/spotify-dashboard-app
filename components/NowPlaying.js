@@ -1,6 +1,7 @@
 import useSWR from 'swr';
 import fetcher from '../lib/fetcher';
 import InfoCard from './UI/InfoCard';
+import Title from './UI/Title.styled';
 import styled from 'styled-components';
 
 const NowPlayingWrapper = styled.div`
@@ -10,11 +11,9 @@ const NowPlayingWrapper = styled.div`
   padding: 1rem 0;
 `;
 
-const Title = styled.h3`
+const StyledTitle = styled(Title)`
   text-align: center;
-  font-size: 1.75rem;
-  margin: 0;
-  font-weight: 500;
+  margin: 2rem 0 0;
 `;
 
 export default function NowPlaying() {
@@ -33,7 +32,7 @@ export default function NowPlaying() {
 
   return (
     <>
-      <Title>Now playing</Title>
+      <StyledTitle>Now playing</StyledTitle>
       {currentTrack}
     </>
   );

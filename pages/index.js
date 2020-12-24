@@ -1,9 +1,10 @@
 import NowPlaying from '../components/NowPlaying';
 import TopTracks from '../components/TopTracks';
 import TopArtists from '../components/TopArtists';
+import Title from '../components/UI/Title.styled';
 import styled from 'styled-components';
 
-const Title = styled.h1`
+const StyledTitle = styled(Title)`
   font-size: 1.8rem;
   font-weight: bold;
   text-align: center;
@@ -11,11 +12,6 @@ const Title = styled.h1`
   @media (min-width: 768px) {
     font-size: 4rem;
     font-weight: 500;
-  }
-
-  strong {
-    color: #1db954;
-    font-weight: inherit;
   }
 `;
 
@@ -37,9 +33,9 @@ export default function Home() {
   return (
     <div>
       <main>
-        <Title>
+        <StyledTitle as="h1">
           Your <strong>Spotify</strong> Dashboard
-        </Title>
+        </StyledTitle>
 
         <NowPlaying />
 
