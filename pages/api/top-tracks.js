@@ -1,8 +1,7 @@
 import { getTopTracks } from '../../lib/spotify';
 
 export default async (_, res) => {
-  const maxTracks = 10;
-  const response = await getTopTracks(maxTracks);
+  const response = await getTopTracks('short_term', 10);
   const { items } = await response.json();
 
   const tracks = items.map((track) => ({
