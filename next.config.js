@@ -1,6 +1,6 @@
 module.exports = {
   images: {
-    domains: ['i.scdn.co'], // Spotify Album Art
+    domains: ['i.scdn.co', 'scontent-amt2-1.xx.fbcdn.net'], // Spotify Album Art
   },
   webpack: (config, { dev, isServer }) => {
     // if (isServer) {
