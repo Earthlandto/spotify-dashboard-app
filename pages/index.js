@@ -1,3 +1,4 @@
+import React from 'react';
 import NowPlaying from '../components/NowPlaying';
 import TopTracks from '../components/TopTracks';
 import TopArtists from '../components/TopArtists';

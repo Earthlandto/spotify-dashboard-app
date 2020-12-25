@@ -1,6 +1,6 @@
 import React from 'react';
-import UserProfileCard from '../UserProfileCard';
-import LogoApp from '../LogoApp';
+import UserProfileCard from './UserProfileCard';
+import LogoApp from './LogoApp';
 import styled from 'styled-components';
 import { rgba } from 'polished';
 

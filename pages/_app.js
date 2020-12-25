@@ -2,6 +2,7 @@ import 'normalize.css/normalize.css';
 import '../styles/globals.css';
 import React from 'react';
 import Head from 'next/head';
+import AppHeader from '../components/AppHeader';
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -9,7 +10,10 @@ function MyApp({ Component, pageProps }) {
       <Head>
         <title>Spotify Dashboard app</title>
       </Head>
-      <Component {...pageProps} />
+      <div>
+        <AppHeader />
+        <Component {...pageProps} />
+      </div>
     </>
   );
 }
