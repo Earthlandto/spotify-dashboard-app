@@ -8,7 +8,11 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title>Spotify Dashboard app</title>
+        <title>Dashtify · Spotify dashboard</title>
+        <meta
+          name="description"
+          content="All the relevant use of your spotify account in one place"
+        />
       </Head>
       <div>
         <AppHeader />

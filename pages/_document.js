@@ -26,6 +26,16 @@ export default class MyDocument extends Document {
           <link rel="icon" href="/static/favicons/favicon.ico" />
           {/* Step 5: Output the styles in the head  */}
           {this.props.styleTags}
+          <meta charset="UTF-8" />
+          <meta
+            name="keywords"
+            content="spotify, dashboard, top, song, artist, playlist, music, create, add, manage, handle, show"
+          />
+          <meta name="author" content="earthlandto" />
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+          />
         </Head>
         <body>
           <Main />

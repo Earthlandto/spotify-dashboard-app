@@ -9,6 +9,8 @@ const StyledLogoApp = styled.div`
 
 const StyledTitle = styled.span`
   padding-left: 0.5rem;
+  color: #fa99cf;
+  font-weight: 200;
 `;
 
 export default function LogoApp() {
@@ -20,7 +22,7 @@ export default function LogoApp() {
         width={18}
         src={'/static/icons/spotify-dashboard-icon.png'}
       />
-      <StyledTitle>Spotify Dashboard</StyledTitle>
+      <StyledTitle>Dashtify</StyledTitle>
     </StyledLogoApp>
   );
 }
