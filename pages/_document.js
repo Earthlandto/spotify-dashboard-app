@@ -32,10 +32,6 @@ export default class MyDocument extends Document {
             content="spotify, dashboard, top, song, artist, playlist, music, create, add, manage, handle, show"
           />
           <meta name="author" content="earthlandto" />
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0"
-          />
         </Head>
         <body>
           <Main />
