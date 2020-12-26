@@ -1,9 +1,7 @@
 import { getCurrentUser } from '../../lib/spotify';
 
 export default async (_, res) => {
-  const response = await getCurrentUser();
-
-  const user = await response.json();
+  const user = await getCurrentUser();
 
   res.setHeader(
     'Cache-Control',
