@@ -18,7 +18,9 @@ const StyledTitle = styled(Title)`
 `;
 
 export default function NowPlaying() {
-  const { data } = useSWR('/api/now-playing', fetcher);
+  const { data } = useSWR('/api/now-playing', fetcher, {
+    refreshInterval: 30000, // refresh every 30s
+  });
 
   const currentTrack = data && (
     <NowPlayingWrapper>
