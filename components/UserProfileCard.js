@@ -31,18 +31,18 @@ export default function UserProfileCard() {
 
   return (
     <StyledUserProfileCard
-      href={data.url}
+      href={data.user.url}
       alt="See user profile in Spotify"
       target="_blank"
       rel="noopener"
     >
-      <span>{data.name}</span>
+      <span>{data.user.name}</span>
       <ImageWrapper>
         <Image
           alt="Spotify Dashboard app"
           height={20}
           width={20}
-          src={data.imageUrl}
+          src={data.user.imageUrl}
         />
       </ImageWrapper>
     </StyledUserProfileCard>
