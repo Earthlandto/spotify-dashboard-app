@@ -24,16 +24,16 @@ export default function TopRankingButtons({
 }) {
   const [period, setPeriod] = useState(defaultPeriod);
   const [limit, setLimit] = useState(defaultLimit);
-  const [minLimit, maxLimit] = [0, 50];
+  const [minLimit, maxLimit] = [3, 50];
 
   const handleLimitChange = (e) => {
-    let value = e.target.value || 0;
+    let value = e.target.value || minLimit;
 
     if (value < minLimit) {
-      value = 0;
+      value = minLimit;
     }
     if (value > maxLimit) {
-      value = 50;
+      value = maxLimit;
     }
     setLimit(value);
     onChange({ limit: value, period });
