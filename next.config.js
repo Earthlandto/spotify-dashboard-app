@@ -5,6 +5,7 @@ module.exports = {
       'i.scdn.co',
       'scontent-amt2-1.xx.fbcdn.net',
       'scontent-lhr8-2.xx.fbcdn.net',
+      'scontent-ort2-2.xx.fbcdn.net',
     ],
   },
   webpack: (config, { dev, isServer }) => {
