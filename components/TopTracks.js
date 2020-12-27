@@ -6,6 +6,7 @@ import InfoCard from './UI/InfoCard';
 import querystring from 'querystring';
 import Title from './UI/Title.styled';
 import TopRankingButtons from './TopRankingButtons';
+import CreatePlaylist from './CreatePlaylist';
 import styled from 'styled-components';
 
 const StyledColumn = styled.div`
@@ -22,6 +23,10 @@ const StyledHeader = styled.div`
   }
 `;
 
+const FlexWrapper = styled.div`
+  display: flex;
+`;
+
 export default function TopTracks() {
   const [options, setOptions] = useState({
     limit: 5,
@@ -29,17 +34,22 @@ export default function TopTracks() {
   });
   const queryParams = querystring.stringify(options);
   const { data } = useSWR(`/api/top-tracks?${queryParams}`, fetcher);
+  const trackIds = data && data.tracks.map((track) => track.uri);
+  const playlistName = `Top ${options.limit} songs for ${options.period}`;
 
   const header = (
     <StyledHeader>
       <Title>
         Your top <strong>songs</strong>
       </Title>
-      <TopRankingButtons
-        defaultLimit={options.limit}
-        defaultPeriod={options.period}
-        onChange={setOptions}
-      />
+      <FlexWrapper>
+        <TopRankingButtons
+          defaultLimit={options.limit}
+          defaultPeriod={options.period}
+          onChange={setOptions}
+        />
+        <CreatePlaylist trackIds={trackIds} name={playlistName} />
+      </FlexWrapper>
     </StyledHeader>
   );
   const trackList =
@@ -55,9 +65,11 @@ export default function TopTracks() {
     ));
 
   return (
-    <StyledColumn>
-      {header}
-      <RankingList isLoading={!data}>{trackList}</RankingList>
-    </StyledColumn>
+    <div>
+      <StyledColumn>
+        {header}
+        <RankingList isLoading={!data}>{trackList}</RankingList>
+      </StyledColumn>
+    </div>
   );
 }
