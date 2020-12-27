@@ -18,25 +18,26 @@ const StyledTitle = styled(Title)`
 `;
 
 export default function NowPlaying() {
-  const { data } = useSWR('/api/now-playing', fetcher, {
+  const { data, isValidating } = useSWR('/api/now-playing', fetcher, {
     refreshInterval: 30000, // refresh every 30s
   });
+  const shouldShowPlaceholder = !data || isValidating;
 
-  const currentTrack = data && (
-    <NowPlayingWrapper>
-      <InfoCard
-        imageUrl={data.albumImageUrl}
-        title={data.title || 'Playback stopped'}
-        subtitle={data.artist}
-        url={data.songUrl}
-      />
-    </NowPlayingWrapper>
+  const currentTrack = shouldShowPlaceholder ? (
+    <InfoCard isPlaceholder={true} />
+  ) : (
+    <InfoCard
+      imageUrl={data.albumImageUrl}
+      title={data.title || 'Playback stopped'}
+      subtitle={data.artist}
+      url={data.songUrl}
+    />
   );
 
   return (
     <>
       <StyledTitle>Now playing</StyledTitle>
-      {currentTrack}
+      <NowPlayingWrapper>{currentTrack}</NowPlayingWrapper>
     </>
   );
 }
