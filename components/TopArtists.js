@@ -29,7 +29,10 @@ export default function TopTracks() {
     period: PERIODS.SHORT,
   });
   const queryParams = querystring.stringify(options);
-  const { data } = useSWR(`/api/top-artists?${queryParams}`, fetcher);
+  const { data, isValidating } = useSWR(
+    `/api/top-artists?${queryParams}`,
+    fetcher
+  );
 
   const header = (
     <StyledHeader>
@@ -44,21 +47,23 @@ export default function TopTracks() {
     </StyledHeader>
   );
 
-  const artistList =
-    data &&
-    data.artists.map((artist, index) => (
-      <InfoCard
-        key={index}
-        imageUrl={artist.imageUrl}
-        title={artist.name}
-        url={artist.artistUrl}
-      />
-    ));
+  const artistList = data?.artists?.map((artist, index) => (
+    <InfoCard
+      key={index}
+      imageUrl={artist.imageUrl}
+      title={artist.name}
+      url={artist.artistUrl}
+    />
+  ));
+
+  const placeholderList = [1, 2, 3, 4, 5].map((i) => (
+    <InfoCard isPlaceholder={true} key={i} />
+  ));
 
   return (
     <StyledColumn>
       {header}
-      <RankingList isLoading={!data}>{artistList}</RankingList>
+      <RankingList>{isValidating ? placeholderList : artistList}</RankingList>
     </StyledColumn>
   );
 }

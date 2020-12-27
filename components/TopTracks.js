@@ -39,7 +39,10 @@ export default function TopTracks() {
     period: PERIODS.SHORT,
   });
   const queryParams = querystring.stringify(options);
-  const { data } = useSWR(`/api/top-tracks?${queryParams}`, fetcher);
+  const { data, isValidating } = useSWR(
+    `/api/top-tracks?${queryParams}`,
+    fetcher
+  );
   const trackIds = data && data.tracks.map((track) => track.uri);
   const playlistName = `Top ${options.limit} songs for ${
     PERIOD_MESSAGES[options.period]
@@ -60,23 +63,25 @@ export default function TopTracks() {
       </FlexWrapper>
     </StyledHeader>
   );
-  const trackList =
-    data &&
-    data.tracks.map((track, index) => (
-      <InfoCard
-        key={index}
-        imageUrl={track.albumImageUrl}
-        title={track.title}
-        subtitle={track.artist}
-        url={track.songUrl}
-      />
-    ));
+  const trackList = data?.tracks?.map((track, index) => (
+    <InfoCard
+      key={index}
+      imageUrl={track.albumImageUrl}
+      title={track.title}
+      subtitle={track.artist}
+      url={track.songUrl}
+    />
+  ));
+
+  const placeholderList = [1, 2, 3, 4, 5].map((i) => (
+    <InfoCard isPlaceholder={true} key={i} />
+  ));
 
   return (
     <div>
       <StyledColumn>
         {header}
-        <RankingList isLoading={!data}>{trackList}</RankingList>
+        <RankingList>{isValidating ? placeholderList : trackList}</RankingList>
       </StyledColumn>
     </div>
   );
