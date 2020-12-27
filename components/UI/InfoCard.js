@@ -1,7 +1,29 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import Image from 'next/image';
 import { rgba } from 'polished';
+
+const animatedBackground = keyframes`
+ from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 800px 0;
+  }
+`;
+
+const animatedElement = css`
+  animation: ${animatedBackground} 5s linear infinite;
+  background-repeat: repeat;
+  background-position: 0px 0px;
+  background-image: linear-gradient(
+    90deg,
+    #e4e4e4 0%,
+    #f1f1f1 40%,
+    #ededed 60%,
+    #e4e4e4 100%
+  );
+`;
 
 const StyledCard = styled.a`
   display: flex;
@@ -33,7 +55,8 @@ const ImageWrapper = styled.div`
 
   box-shadow: 0 0 0 1px ${rgba('#333', 0.05)};
   border-radius: 4px;
-  background-color: #ececec;
+
+  ${({ isPlaceholder }) => (isPlaceholder ? animatedElement : null)};
 
   img {
     border-radius: 4px;
@@ -76,11 +99,11 @@ const InfoWrapper = styled.div`
   ${Text} {
     ${({ isPlaceholder }) =>
       isPlaceholder
-        ? css({
-            width: '9rem',
-            height: '0.75rem',
-            backgroundColor: '#ececec',
-          })
+        ? css`
+            ${animatedElement};
+            width: 9rem;
+            height: 0.75rem;
+          `
         : null};
   }
 `;
@@ -103,13 +126,8 @@ export default function InfoCard({
   );
 
   return (
-    <StyledCard
-      href={url || '#'}
-      target="_blank"
-      rel="noopener noreferrer"
-      isPlaceholder={isPlaceholder}
-    >
-      <ImageWrapper>{image}</ImageWrapper>
+    <StyledCard href={url || '#'} target="_blank" rel="noopener noreferrer">
+      <ImageWrapper isPlaceholder={isPlaceholder}>{image}</ImageWrapper>
       <InfoWrapper isPlaceholder={isPlaceholder}>
         <Text alt={title}>{title}</Text>
         {subtitleText}
