@@ -1,26 +1,22 @@
 import { createPlaylist, addTracksToPlaylist } from '../../lib/spotify';
+import { createError } from '../../utils/api-errors';
 
 export default async (req, res) => {
   const { trackIds, name } = req.body;
 
+  // Initial validation
   if (!name) {
-    return res.status(400).json({
-      status: 400,
-      message: 'Name is mandatory',
-    });
+    return createError(res, 400, { message: 'Name is mandatory' });
   }
 
   if (!trackIds || trackIds.length <= 0) {
-    return res.status(400).json({
-      status: 400,
-      message: 'No valid tracks list',
-    });
+    return createError(res, 400, { message: 'No valid tracks list' });
   }
 
   const playlistResponse = await createPlaylist(name);
 
-  if (!playlistResponse.id || playlistResponse.error) {
-    return res.status(playlistResponse.error.status).json(playlistResponse);
+  if (!playlistResponse.ok) {
+    return createError(res, playlistResponse.status, playlistResponse);
   }
 
   const addedTracksResponse = await addTracksToPlaylist(
@@ -28,10 +24,8 @@ export default async (req, res) => {
     trackIds
   );
 
-  if (addedTracksResponse.error) {
-    return res
-      .status(addedTracksResponse.error.status)
-      .json(addedTracksResponse);
+  if (!addedTracksResponse.ok) {
+    return createError(res, addedTracksResponse.status, addedTracksResponse);
   }
 
   res.setHeader(

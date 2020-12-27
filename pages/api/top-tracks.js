@@ -1,9 +1,14 @@
 import { getTopTracks } from '../../lib/spotify';
+import { createError } from '../../utils/api-errors';
 
 export default async (req, res) => {
   const { period, limit } = req.query;
   const response = await getTopTracks(period, limit);
   const { items } = await response.json();
+
+  if (!response.ok) {
+    return createError(res, response.status, response);
+  }
 
   const tracks = items.map((track) => ({
     artist: track.artists.map((_artist) => _artist.name).join(', '),
