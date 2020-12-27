@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import Title from './Title.styled';
-import Spinner from './Spinner';
 
 const StyledRankingList = styled.div`
   display: flex;
@@ -23,16 +22,22 @@ const RankingItem = styled.div`
   }
 `;
 
-export default function RankingList({ title, isLoading = false, children }) {
+const EmptyContentMessage = styled.p`
+  padding: 2rem 1rem;
+  margin: 0;
+  text-align: center;
+`;
+
+export default function RankingList({ title, children }) {
   const header = title && <Title>{title}</Title>;
   const items = children?.map((item, index) => (
     <RankingItem key={index}>{item}</RankingItem>
   ));
 
-  const content = isLoading ? (
-    <Spinner size="large" />
-  ) : (
+  const content = children ? (
     <StyledRankingList>{items}</StyledRankingList>
+  ) : (
+    <EmptyContentMessage>Empty ranking</EmptyContentMessage>
   );
 
   return (
