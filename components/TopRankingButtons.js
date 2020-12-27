@@ -4,16 +4,10 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   display: flex;
-  justify-content: center;
-  padding-left: 0.25rem;
 
   ${StyledLabel},
   ${StyledSelect} {
     margin: 0.5rem 0.5rem 0 0;
-  }
-
-  @media (min-width: 768px) {
-    justify-content: flex-start;
   }
 `;
 

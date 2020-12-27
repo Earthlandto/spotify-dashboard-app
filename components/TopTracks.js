@@ -25,6 +25,11 @@ const StyledHeader = styled.div`
 
 const FlexWrapper = styled.div`
   display: flex;
+  justify-content: center;
+
+  @media (min-width: 768px) {
+    padding-left: 0.25rem;
+  }
 `;
 
 export default function TopTracks() {
