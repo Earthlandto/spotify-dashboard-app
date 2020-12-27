@@ -7,6 +7,7 @@ import querystring from 'querystring';
 import Title from './UI/Title.styled';
 import TopRankingButtons from './TopRankingButtons';
 import styled from 'styled-components';
+import { PERIODS } from '../constants/spotify';
 
 const StyledColumn = styled.div`
   display: flex;
@@ -25,7 +26,7 @@ const StyledHeader = styled.div`
 export default function TopTracks() {
   const [options, setOptions] = useState({
     limit: 5,
-    period: 'short_term',
+    period: PERIODS.SHORT,
   });
   const queryParams = querystring.stringify(options);
   const { data } = useSWR(`/api/top-artists?${queryParams}`, fetcher);

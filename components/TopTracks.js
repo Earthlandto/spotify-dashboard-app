@@ -8,6 +8,7 @@ import Title from './UI/Title.styled';
 import TopRankingButtons from './TopRankingButtons';
 import CreatePlaylist from './CreatePlaylist';
 import styled from 'styled-components';
+import { PERIODS, PERIOD_MESSAGES } from '../constants/spotify';
 
 const StyledColumn = styled.div`
   display: flex;
@@ -35,12 +36,14 @@ const FlexWrapper = styled.div`
 export default function TopTracks() {
   const [options, setOptions] = useState({
     limit: 5,
-    period: 'short_term',
+    period: PERIODS.SHORT,
   });
   const queryParams = querystring.stringify(options);
   const { data } = useSWR(`/api/top-tracks?${queryParams}`, fetcher);
   const trackIds = data && data.tracks.map((track) => track.uri);
-  const playlistName = `Top ${options.limit} songs for ${options.period}`;
+  const playlistName = `Top ${options.limit} songs for ${
+    PERIOD_MESSAGES[options.period]
+  }`;
 
   const header = (
     <StyledHeader>
