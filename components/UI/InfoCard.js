@@ -33,20 +33,11 @@ const ImageWrapper = styled.div`
 
   box-shadow: 0 0 0 1px ${rgba('#333', 0.05)};
   border-radius: 4px;
+  background-color: #ececec;
 
   img {
     border-radius: 4px;
   }
-`;
-
-const InfoWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  flex: 1;
-
-  padding: 0 0.5rem 0 1rem;
 `;
 
 const Text = styled.span`
@@ -73,19 +64,53 @@ const Text = styled.span`
   }
 `;
 
-export default function InfoCard({ imageUrl, url, title, subtitle }) {
+const InfoWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+
+  padding: 0 0.5rem 0 1rem;
+
+  ${Text} {
+    ${({ isPlaceholder }) =>
+      isPlaceholder
+        ? css({
+            width: '9rem',
+            height: '0.75rem',
+            backgroundColor: '#ececec',
+          })
+        : null};
+  }
+`;
+
+export default function InfoCard({
+  imageUrl,
+  url,
+  title,
+  subtitle,
+  isPlaceholder,
+}) {
   const subtitleText = subtitle && <Text clipText>{subtitle}</Text>;
+  const image = !isPlaceholder && (
+    <Image
+      alt="Spotify"
+      height={80}
+      width={80}
+      src={imageUrl || '/static/images/track-placeholder.jpg'}
+    />
+  );
+
   return (
-    <StyledCard href={url || '#'} target="_blank" rel="noopener noreferrer">
-      <ImageWrapper>
-        <Image
-          alt="Spotify"
-          height={80}
-          width={80}
-          src={imageUrl || '/static/images/track-placeholder.jpg'}
-        />
-      </ImageWrapper>
-      <InfoWrapper>
+    <StyledCard
+      href={url || '#'}
+      target="_blank"
+      rel="noopener noreferrer"
+      isPlaceholder={isPlaceholder}
+    >
+      <ImageWrapper>{image}</ImageWrapper>
+      <InfoWrapper isPlaceholder={isPlaceholder}>
         <Text alt={title}>{title}</Text>
         {subtitleText}
       </InfoWrapper>
