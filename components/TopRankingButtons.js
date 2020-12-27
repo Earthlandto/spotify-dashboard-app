@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { StyledInput, StyledLabel, StyledSelect } from './UI/Input.styled';
+import { PERIODS, PERIOD_MESSAGES } from '../constants/spotify';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
@@ -39,6 +40,17 @@ export default function TopRankingButtons({
     onChange({ limit, period: value });
   };
 
+  const periodOptions = Object.keys(PERIODS).map((periodKey) => {
+    const periodMessage = PERIOD_MESSAGES[PERIODS[periodKey]];
+    const label =
+      periodMessage.charAt(0).toUpperCase() + periodMessage.slice(1);
+    return (
+      <option key={periodKey} value={PERIODS[periodKey]}>
+        {label}
+      </option>
+    );
+  });
+
   return (
     <Wrapper>
       <StyledLabel>
@@ -52,9 +64,7 @@ export default function TopRankingButtons({
         />
       </StyledLabel>
       <StyledSelect value={period} onChange={handlePeriodChange}>
-        <option value="short_term">Last month</option>
-        <option value="medium_term">Last 6 months</option>
-        <option value="long_term">Lifetime</option>
+        {periodOptions}
       </StyledSelect>
     </Wrapper>
   );
