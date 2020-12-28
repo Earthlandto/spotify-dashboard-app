@@ -2,7 +2,7 @@ import { createPlaylist, addTracksToPlaylist } from '../../lib/spotify';
 import { createError } from '../../utils/api-errors';
 
 export default async (req, res) => {
-  const { trackIds, name } = req.body;
+  const { name, description, trackIds } = req.body;
 
   // Initial validation
   if (!name) {
@@ -19,7 +19,7 @@ export default async (req, res) => {
     });
   }
 
-  const playlistResponse = await createPlaylist(name);
+  const playlistResponse = await createPlaylist(name, description || '');
 
   if (playlistResponse.error) {
     return createError(

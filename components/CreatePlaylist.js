@@ -68,6 +68,7 @@ export default function CreatePlaylist({
         body: JSON.stringify({
           name,
           trackIds,
+          description: `Created on ${new Date().toLocaleDateString()} by Dashtify.vercel.app`,
         }),
       })
   );
