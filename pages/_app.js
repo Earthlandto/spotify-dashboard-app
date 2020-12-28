@@ -5,8 +5,11 @@ import Head from 'next/head';
 import AppHeader from '../components/AppHeader';
 import { SWRConfig } from 'swr';
 import fetcher from '../lib/fetcher';
+import { config } from '@fortawesome/fontawesome-svg-core';
+import '@fortawesome/fontawesome-svg-core/styles.css'; // Import the CSS
 
 function MyApp({ Component, pageProps }) {
+  config.autoAddCss = false; // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
   return (
     <>
       <Head>
