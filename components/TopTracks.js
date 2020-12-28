@@ -72,7 +72,7 @@ export default function TopTracks() {
         subtitle={track.artist}
         url={track.songUrl}
       />
-      <PlayTrack trackId={track.uri} />
+      <PlayTrack trackIds={[track.uri]} />
     </RelativeWrapper>
   ));
 

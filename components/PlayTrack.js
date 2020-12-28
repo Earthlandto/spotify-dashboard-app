@@ -16,7 +16,7 @@ const StyledPlayTrack = styled.button`
   outline: none;
 `;
 
-export default function CreatePlaylist({ trackId }) {
+export default function CreatePlaylist({ trackIds }) {
   const playTrack = () => {
     fetcher('/api/play-track-list', {
       method: 'PUT',
@@ -24,7 +24,7 @@ export default function CreatePlaylist({ trackId }) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        trackIds: [trackId],
+        trackIds,
       }),
     });
   };
