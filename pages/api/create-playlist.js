@@ -6,17 +6,27 @@ export default async (req, res) => {
 
   // Initial validation
   if (!name) {
-    return createError(res, 400, { message: 'Name is mandatory' });
+    return createError(res, 400, {
+      status: 400,
+      message: 'Name is mandatory',
+    });
   }
 
   if (!trackIds || trackIds.length <= 0) {
-    return createError(res, 400, { message: 'No valid tracks list' });
+    return createError(res, 400, {
+      status: 400,
+      message: 'No valid tracks list',
+    });
   }
 
-  const playlistResponse = await createPlaylist(name);
+  const playlistResponse = await createPlaylist();
 
-  if (!playlistResponse.ok) {
-    return createError(res, playlistResponse.status, playlistResponse);
+  if (playlistResponse.error) {
+    return createError(
+      res,
+      playlistResponse.error.status,
+      playlistResponse.error
+    );
   }
 
   const addedTracksResponse = await addTracksToPlaylist(
@@ -24,8 +34,12 @@ export default async (req, res) => {
     trackIds
   );
 
-  if (!addedTracksResponse.ok) {
-    return createError(res, addedTracksResponse.status, addedTracksResponse);
+  if (addedTracksResponse.error) {
+    return createError(
+      res,
+      addedTracksResponse.error.status,
+      addedTracksResponse.error
+    );
   }
 
   res.setHeader(

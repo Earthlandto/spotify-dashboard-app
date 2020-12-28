@@ -1,7 +1,12 @@
 import { getCurrentUser } from '../../lib/spotify';
+import { createError } from '../../utils/api-errors';
 
 export default async (_, res) => {
   const response = await getCurrentUser();
+
+  if (response.error) {
+    return createError(res, response.error.status, response.error);
+  }
 
   res.setHeader(
     'Cache-Control',
