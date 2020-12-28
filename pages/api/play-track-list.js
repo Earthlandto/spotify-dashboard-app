@@ -15,7 +15,7 @@ export default async (req, res) => {
   const response = await playTrackList(trackIds);
 
   if (!response.ok) {
-    return createError(res, response.status, response);
+    return createError(res, response.status, response.error);
   }
 
   res.setHeader(
