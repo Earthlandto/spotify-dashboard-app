@@ -86,7 +86,7 @@ export default function CreatePlaylist({
         target="_blank"
         rel="noopener noreferrer"
       >
-        See it 🎉
+        {isValidating ? 'Loading...' : 'See it 🎉'}
       </FilledElem>
     </>
   );
