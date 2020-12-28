@@ -17,12 +17,12 @@ const StyledTitle = styled(Title)`
 `;
 
 export default function NowPlaying() {
-  const { data, isValidating } = useSWR('/api/now-playing', {
-    refreshInterval: 30000, // refresh every 30s
+  const { data } = useSWR('/api/now-playing', {
+    refreshInterval: 3000, // refresh every 3s
     revalidateOnFocus: true,
     revalidateOnReconnect: true,
   });
-  const shouldShowPlaceholder = !data || isValidating;
+  const shouldShowPlaceholder = !data || data.isLoading;
 
   const currentTrack = shouldShowPlaceholder ? (
     <InfoCard isPlaceholder={true} />

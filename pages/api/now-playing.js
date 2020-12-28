@@ -6,8 +6,12 @@ export default async (_, res) => {
   if (response.status === 204 || response.status > 400) {
     return res.status(200).json({ isPlaying: false });
   }
-  
+
   const { item, is_playing: isPlaying } = await response.json();
+
+  if (!item) {
+    return res.status(200).json({ isLoading: true });
+  }
 
   const artist = item.artists.map((_artist) => _artist.name).join(', ');
   const album = item.album;
