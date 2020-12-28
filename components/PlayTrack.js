@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { mutate } from 'swr';
 import fetcher from '../lib/fetcher';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlayCircle } from '@fortawesome/free-solid-svg-icons';
@@ -27,6 +28,8 @@ export default function CreatePlaylist({ trackIds, contextId }) {
         trackIds,
         contextId,
       }),
+    }).then(() => {
+      mutate('/api/now-playing');
     });
   };
 
