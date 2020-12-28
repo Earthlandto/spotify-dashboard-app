@@ -13,15 +13,16 @@ const animatedBackground = keyframes`
 `;
 
 const animatedElement = css`
-  animation: ${animatedBackground} 5s linear infinite;
+  animation: ${animatedBackground} 10s linear infinite;
   background-repeat: repeat;
   background-position: 0px 0px;
   background-image: linear-gradient(
     90deg,
-    #e4e4e4 0%,
-    #f1f1f1 40%,
-    #ededed 60%,
-    #e4e4e4 100%
+    #1db954 0%,
+    ${rgba('#1db954', 0.9)} 25%,
+    ${rgba('#1db954', 0.8)} 50%,
+    ${rgba('#1db954', 0.9)} 75%,
+    #1db954 100%
   );
 `;
 
@@ -31,6 +32,7 @@ const StyledCard = styled.a`
   width: 21rem;
 
   padding: 0.5rem;
+  background-color: #3a3a3a;
   box-shadow: 0 1px 0 0 ${rgba('#333', 0.12)};
   border: 1px solid ${rgba('#333', 0.12)};
   border-radius: 8px;

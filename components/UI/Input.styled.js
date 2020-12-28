@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { rgba } from 'polished';
 
 const BaseInput = styled.input`
   height: 2rem;
@@ -7,18 +8,19 @@ const BaseInput = styled.input`
   margin: 0;
   padding: 0.25rem 0.25rem 0.25rem 0.5rem;
 
-  border: 1px solid #f5f5f5;
+  color: inherit;
+  background-color: ${rgba('#ececec', 0.15)};
+  border: 1px solid ${rgba('#333', 0.5)};
   border-radius: 4px;
   font-size: 0.875rem;
   line-height: 1.1;
   outline: none;
-  background-color: white;
 
   &:focus,
   &:visited,
   &:active,
   &:hover {
-    border-color: #ececec;
+    border-color: ${rgba('#ececec', 0.5)};
   }
 `;
 

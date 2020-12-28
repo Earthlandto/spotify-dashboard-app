@@ -13,16 +13,16 @@ const StyledCreatePlaylistButton = styled.div`
   font-size: 0.875rem;
   background-color: #1db954;
   color: white;
-  border: 1px solid #1db954;
+  border: 0;
   border-radius: 1rem;
   transition: 0.2s border-color ease-in, 0.2s color ease-in,
     0.2s background-color ease-in;
+  color: white;
 
   ${({ inverseColors }) =>
     css({
-      color: inverseColors ? '#1db954' : 'white',
       borderColor: inverseColors ? '#1db954' : 'white',
-      backgroundColor: inverseColors ? 'white' : '#1db954',
+      backgroundColor: inverseColors ? '#8a8a8a' : '#1db954',
     })};
 `;
 

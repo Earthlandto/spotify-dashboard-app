@@ -11,6 +11,8 @@ import styled from 'styled-components';
 
 const StyledApp = styled.div`
   padding-bottom: 3rem;
+  background-color: #2e2e2e;
+  color: white;
 `;
 
 function MyApp({ Component, pageProps }) {
