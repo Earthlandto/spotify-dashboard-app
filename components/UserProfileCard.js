@@ -1,7 +1,6 @@
 import React from 'react';
 import useSWR from 'swr';
 import styled from 'styled-components';
-import Image from 'next/image';
 
 const StyledUserProfileCard = styled.a`
   display: flex;
@@ -39,7 +38,7 @@ export default function UserProfileCard() {
     >
       <span>{data.user.name}</span>
       <ImageWrapper>
-        <Image
+        <img
           alt="Spotify Dashboard app"
           height={20}
           width={20}
