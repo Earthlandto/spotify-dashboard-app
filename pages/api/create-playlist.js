@@ -19,7 +19,7 @@ export default async (req, res) => {
     });
   }
 
-  const playlistResponse = await createPlaylist();
+  const playlistResponse = await createPlaylist(name);
 
   if (playlistResponse.error) {
     return createError(
