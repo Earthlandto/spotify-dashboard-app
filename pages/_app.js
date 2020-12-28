@@ -7,6 +7,11 @@ import { SWRConfig } from 'swr';
 import fetcher from '../lib/fetcher';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css'; // Import the CSS
+import styled from 'styled-components';
+
+const StyledApp = styled.div`
+  padding-bottom: 3rem;
+`;
 
 function MyApp({ Component, pageProps }) {
   config.autoAddCss = false; // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
@@ -20,7 +25,7 @@ function MyApp({ Component, pageProps }) {
         />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
-      <div>
+      <StyledApp>
         <AppHeader />
         <SWRConfig
           value={{
@@ -32,7 +37,7 @@ function MyApp({ Component, pageProps }) {
         >
           <Component {...pageProps} />
         </SWRConfig>
-      </div>
+      </StyledApp>
     </>
   );
 }
