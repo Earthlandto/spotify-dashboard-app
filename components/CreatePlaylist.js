@@ -60,23 +60,16 @@ export default function CreatePlaylist({
   const { data, isValidating } = useSWR(
     shouldFetch ? `/api/create-playlist` : null,
     (url) =>
-      fetcher(
-        url,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            name,
-            trackIds,
-          }),
+      fetcher(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-        {
-          revalidateOnFocus: false,
-          revalidateOnReconnect: false,
-        }
-      )
+        body: JSON.stringify({
+          name,
+          trackIds,
+        }),
+      })
   );
 
   const form = !data && (

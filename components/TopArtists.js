@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import useSWR from 'swr';
-import fetcher from '../lib/fetcher';
 import RankingList from './UI/RankingList';
 import InfoCard from './UI/InfoCard';
 import querystring from 'querystring';
@@ -29,10 +28,7 @@ export default function TopTracks() {
     period: PERIODS.SHORT,
   });
   const queryParams = querystring.stringify(options);
-  const { data, isValidating } = useSWR(
-    `/api/top-artists?${queryParams}`,
-    fetcher
-  );
+  const { data, isValidating } = useSWR(`/api/top-artists?${queryParams}`);
 
   const header = (
     <StyledHeader>

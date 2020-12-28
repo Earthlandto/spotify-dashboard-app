@@ -1,6 +1,5 @@
 import React from 'react';
 import useSWR from 'swr';
-import fetcher from '../lib/fetcher';
 import styled from 'styled-components';
 import Image from 'next/image';
 
@@ -24,7 +23,9 @@ const ImageWrapper = styled.div`
 `;
 
 export default function UserProfileCard() {
-  const { data } = useSWR('/api/current-spotify-user', fetcher);
+  const { data } = useSWR('/api/current-spotify-user', {
+    revalidateOnReconnect: true,
+  });
   if (!data) {
     return null;
   }

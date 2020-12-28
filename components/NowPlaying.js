@@ -1,6 +1,5 @@
 import React from 'react';
 import useSWR from 'swr';
-import fetcher from '../lib/fetcher';
 import InfoCard from './UI/InfoCard';
 import Title from './UI/Title.styled';
 import styled from 'styled-components';
@@ -18,8 +17,10 @@ const StyledTitle = styled(Title)`
 `;
 
 export default function NowPlaying() {
-  const { data, isValidating } = useSWR('/api/now-playing', fetcher, {
+  const { data, isValidating } = useSWR('/api/now-playing', {
     refreshInterval: 30000, // refresh every 30s
+    revalidateOnFocus: true,
+    revalidateOnReconnect: true,
   });
   const shouldShowPlaceholder = !data || isValidating;
 

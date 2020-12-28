@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import useSWR from 'swr';
-import fetcher from '../lib/fetcher';
 import RankingList from './UI/RankingList';
 import InfoCard from './UI/InfoCard';
 import querystring from 'querystring';
@@ -39,10 +38,7 @@ export default function TopTracks() {
     period: PERIODS.SHORT,
   });
   const queryParams = querystring.stringify(options);
-  const { data, isValidating } = useSWR(
-    `/api/top-tracks?${queryParams}`,
-    fetcher
-  );
+  const { data, isValidating } = useSWR(`/api/top-tracks?${queryParams}`);
   const trackIds = data && data.tracks.map((track) => track.uri);
   const playlistName = `Top ${options.limit} songs for ${
     PERIOD_MESSAGES[options.period]
