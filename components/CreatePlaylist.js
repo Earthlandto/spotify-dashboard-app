@@ -35,6 +35,7 @@ const FilledElem = styled.span`
 
   background-color: transparent;
   border: 0;
+  cursor: pointer;
   color: inherit;
   outline: none;
   text-align: center;
@@ -59,16 +60,23 @@ export default function CreatePlaylist({
   const { data, isValidating } = useSWR(
     shouldFetch ? `/api/create-playlist` : null,
     (url) =>
-      fetcher(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      fetcher(
+        url,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name,
+            trackIds,
+          }),
         },
-        body: JSON.stringify({
-          name,
-          trackIds,
-        }),
-      })
+        {
+          revalidateOnFocus: false,
+          revalidateOnReconnect: false,
+        }
+      )
   );
 
   const form = !data && (
