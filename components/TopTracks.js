@@ -6,6 +6,7 @@ import querystring from 'querystring';
 import Title from './UI/Title.styled';
 import TopRankingButtons from './TopRankingButtons';
 import CreatePlaylist from './CreatePlaylist';
+import PlayTrack from './PlayTrack';
 import styled from 'styled-components';
 import { PERIODS, PERIOD_MESSAGES } from '../constants/spotify';
 
@@ -30,6 +31,10 @@ const FlexWrapper = styled.div`
   @media (min-width: 768px) {
     padding-left: 0.25rem;
   }
+`;
+
+const RelativeWrapper = styled.div`
+  position: relative;
 `;
 
 export default function TopTracks() {
@@ -60,13 +65,15 @@ export default function TopTracks() {
     </StyledHeader>
   );
   const trackList = data?.tracks?.map((track, index) => (
-    <InfoCard
-      key={index}
-      imageUrl={track.albumImageUrl}
-      title={track.title}
-      subtitle={track.artist}
-      url={track.songUrl}
-    />
+    <RelativeWrapper key={index}>
+      <InfoCard
+        imageUrl={track.albumImageUrl}
+        title={track.title}
+        subtitle={track.artist}
+        url={track.songUrl}
+      />
+      <PlayTrack trackId={track.uri} />
+    </RelativeWrapper>
   ));
 
   const placeholderList = [1, 2, 3, 4, 5].map((i) => (
