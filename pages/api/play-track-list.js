@@ -2,17 +2,24 @@ import { playTrackList } from '../../lib/spotify';
 import { createError } from '../../utils/api-errors';
 
 export default async (req, res) => {
-  const { trackIds } = req.body;
+  const { trackIds, contextId } = req.body;
 
   // Initial validation
-  if (!trackIds || trackIds.length <= 0) {
+  if (contextId && 'string' !== typeof contextId) {
     return createError(res, 400, {
       status: 400,
-      message: 'No valid tracks list',
+      message: 'No valid context type',
     });
   }
 
-  const response = await playTrackList(trackIds);
+  if (trackIds && !Array.isArray(trackIds)) {
+    return createError(res, 400, {
+      status: 400,
+      message: 'Track list must be an array',
+    });
+  }
+
+  const response = await playTrackList(trackIds, contextId);
 
   if (!response.ok) {
     return createError(res, response.status, response.error);
