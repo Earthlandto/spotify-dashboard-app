@@ -5,6 +5,7 @@ import InfoCard from './UI/InfoCard';
 import querystring from 'querystring';
 import Title from './UI/Title.styled';
 import TopRankingButtons from './TopRankingButtons';
+import PlayTrack from './PlayTrack';
 import styled from 'styled-components';
 import { PERIODS } from '../constants/spotify';
 
@@ -20,6 +21,10 @@ const StyledHeader = styled.div`
   ${Title} {
     margin: 0;
   }
+`;
+
+const RelativeWrapper = styled.div`
+  position: relative;
 `;
 
 export default function TopTracks() {
@@ -44,12 +49,14 @@ export default function TopTracks() {
   );
 
   const artistList = data?.artists?.map((artist, index) => (
-    <InfoCard
-      key={index}
-      imageUrl={artist.imageUrl}
-      title={artist.name}
-      url={artist.artistUrl}
-    />
+    <RelativeWrapper key={index}>
+      <InfoCard
+        imageUrl={artist.imageUrl}
+        title={artist.name}
+        url={artist.artistUrl}
+      />
+      <PlayTrack contextId={artist.uri} />
+    </RelativeWrapper>
   ));
 
   const placeholderList = [1, 2, 3, 4, 5].map((i) => (

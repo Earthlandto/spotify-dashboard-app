@@ -15,6 +15,7 @@ export default async (req, res) => {
     name: artist.name,
     artistUrl: artist.external_urls.spotify,
     imageUrl: artist.images[0].url,
+    uri: artist.uri,
   }));
 
   res.setHeader(
