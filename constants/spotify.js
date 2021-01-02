@@ -9,3 +9,5 @@ export const PERIOD_MESSAGES = {
   medium_term: 'last 6 months',
   long_term: 'lifetime',
 };
+
+export const REDIRECT_URI = `/dashboard`;
