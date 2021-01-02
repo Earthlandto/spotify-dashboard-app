@@ -44,7 +44,7 @@ export default function TopTracks() {
   });
   const queryParams = querystring.stringify(options);
   const { data, isValidating } = useSWR(`/api/top-tracks?${queryParams}`);
-  const trackIds = data && data.tracks.map((track) => track.uri);
+  const trackIds = data && data.tracks && data.tracks.map((track) => track.uri);
   const playlistName = `Top ${options.limit} songs for ${
     PERIOD_MESSAGES[options.period]
   }`;

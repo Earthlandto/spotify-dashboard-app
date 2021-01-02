@@ -25,7 +25,8 @@ export default function UserProfileCard() {
   const { data } = useSWR('/api/current-spotify-user', {
     revalidateOnReconnect: true,
   });
-  if (!data) {
+
+  if (!data || !data.user) {
     return null;
   }
 
