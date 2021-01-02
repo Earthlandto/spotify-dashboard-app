@@ -1,11 +1,19 @@
 import { getCurrentUser } from '../../lib/spotify';
 import { createError } from '../../utils/api-errors';
 
-export default async (_, res) => {
-  const response = await getCurrentUser();
+export default async (req, res) => {
+  const { token } = req.cookies;
+
+  if (!token) {
+    return createError(res, 401, { error: { message: 'No token provided' } });
+  }
+
+  const response = await getCurrentUser({
+    token,
+  });
 
   if (response.error) {
-    return createError(res, response.error.status, response.error);
+    return createError(res, response.error.status, { error: response.error });
   }
 
   res.setHeader(

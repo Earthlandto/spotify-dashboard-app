@@ -1,8 +1,13 @@
 import { playTrackList } from '../../lib/spotify';
-import { createError } from '../../utils/api-errors';
+import { createError, createUnauthorizedError } from '../../utils/api-errors';
 
 export default async (req, res) => {
   const { trackIds, contextId } = req.body;
+  const { token } = req.cookies;
+
+  if (!token) {
+    return createUnauthorizedError(res);
+  }
 
   // Initial validation
   if (contextId && 'string' !== typeof contextId) {
@@ -19,7 +24,7 @@ export default async (req, res) => {
     });
   }
 
-  const response = await playTrackList(trackIds, contextId);
+  const response = await playTrackList({ token, trackIds, contextId });
 
   if (!response.ok) {
     return createError(res, response.status, response.error);

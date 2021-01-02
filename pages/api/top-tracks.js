@@ -1,9 +1,19 @@
 import { getTopTracks } from '../../lib/spotify';
-import { createError } from '../../utils/api-errors';
+import { createError, createUnauthorizedError } from '../../utils/api-errors';
 
 export default async (req, res) => {
   const { period, limit } = req.query;
-  const response = await getTopTracks(period, limit);
+
+  const { token } = req.cookies;
+  if (!token) {
+    return createUnauthorizedError(res);
+  }
+
+  const response = await getTopTracks({
+    token,
+    limit,
+    timeRange: period,
+  });
   const { items } = await response.json();
 
   if (!response.ok) {

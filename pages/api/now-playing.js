@@ -1,7 +1,13 @@
 import { getNowPlaying } from '../../lib/spotify';
+import { createUnauthorizedError } from '../../utils/api-errors';
 
-export default async (_, res) => {
-  const response = await getNowPlaying();
+export default async (req, res) => {
+  const { token } = req.cookies;
+
+  if (!token) {
+    return createUnauthorizedError(res);
+  }
+  const response = await getNowPlaying({ token });
 
   if (response.status === 204 || response.status > 400) {
     return res.status(200).json({ isPlaying: false });

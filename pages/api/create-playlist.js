@@ -1,9 +1,13 @@
 import { createPlaylist, addTracksToPlaylist } from '../../lib/spotify';
-import { createError } from '../../utils/api-errors';
+import { createError, createUnauthorizedError } from '../../utils/api-errors';
 
 export default async (req, res) => {
+  const { token } = req.cookies;
   const { name, description, trackIds } = req.body;
 
+  if (!token) {
+    return createUnauthorizedError(res);
+  }
   // Initial validation
   if (!name) {
     return createError(res, 400, {
@@ -19,7 +23,11 @@ export default async (req, res) => {
     });
   }
 
-  const playlistResponse = await createPlaylist(name, description || '');
+  const playlistResponse = await createPlaylist({
+    token,
+    playlistName: name,
+    description: description || '',
+  });
 
   if (playlistResponse.error) {
     return createError(
@@ -29,10 +37,11 @@ export default async (req, res) => {
     );
   }
 
-  const addedTracksResponse = await addTracksToPlaylist(
-    playlistResponse.id,
-    trackIds
-  );
+  const addedTracksResponse = await addTracksToPlaylist({
+    token,
+    trackIds,
+    playlistId: playlistResponse.id,
+  });
 
   if (addedTracksResponse.error) {
     return createError(
