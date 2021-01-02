@@ -17,6 +17,7 @@
     "querystring": "^0.2.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
+    "react-use-cookie": "^1.2.1",
     "styled-components": "^5.2.1",
     "swr": "^0.3.11"
   },
