@@ -1,14 +1,11 @@
 import React from 'react';
 import useSWR from 'swr';
 import styled from 'styled-components';
+import LogoutButton from './LogoutButton';
 
-const StyledUserProfileCard = styled.a`
+const StyledUserProfileCard = styled.div`
   display: flex;
   align-items: center;
-
-  &:hover {
-    color: #1db954;
-  }
 `;
 
 const ImageWrapper = styled.div`
@@ -31,21 +28,20 @@ export default function UserProfileCard() {
   }
 
   return (
-    <StyledUserProfileCard
-      href={data.user.url}
-      alt="See user profile in Spotify"
-      target="_blank"
-      rel="noopener"
-    >
-      <span>{data.user.name}</span>
-      <ImageWrapper>
-        <img
-          alt="Spotify Dashboard app"
-          height={20}
-          width={20}
-          src={data.user.imageUrl}
-        />
-      </ImageWrapper>
+    <StyledUserProfileCard>
+      <LogoutButton>
+        <span>
+          Logout <strong>{data.user.name}</strong>
+        </span>
+        <ImageWrapper>
+          <img
+            alt="Spotify Dashboard app"
+            height={20}
+            width={20}
+            src={data.user.imageUrl}
+          />
+        </ImageWrapper>
+      </LogoutButton>
     </StyledUserProfileCard>
   );
 }

@@ -1,7 +1,6 @@
 import React from 'react';
 import UserProfileCard from './UserProfileCard';
 import LogoApp from './LogoApp';
-import LogoutButton from './LogoutButton';
 import styled from 'styled-components';
 import { rgba } from 'polished';
 import useCookie from 'react-use-cookie';
@@ -20,16 +19,11 @@ const StyledAppHeader = styled.div`
 
 export default function AppHeader() {
   const [userToken] = useCookie('token');
-  const ProfileSection = userToken && (
-    <div>
-      <LogoutButton />
-      <UserProfileCard />
-    </div>
-  );
+
   return (
     <StyledAppHeader>
       <LogoApp />
-      {ProfileSection}
+      {userToken && <UserProfileCard />}
     </StyledAppHeader>
   );
 }
