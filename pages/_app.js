@@ -28,7 +28,6 @@ function MyApp({ Component, pageProps }) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       <StyledApp>
-        <AppHeader />
         <SWRConfig
           value={{
             fetcher: fetcher,
@@ -37,6 +36,7 @@ function MyApp({ Component, pageProps }) {
             shouldRetryOnError: false,
           }}
         >
+          <AppHeader />
           <Component {...pageProps} />
         </SWRConfig>
       </StyledApp>
