@@ -1,13 +1,14 @@
 import React from 'react';
-import { setCookie } from 'react-use-cookie';
+import useCookie from 'react-use-cookie';
 import { useRouter } from 'next/router';
 
 export default function Index() {
   const router = useRouter();
+  const [, setUserToken] = useCookie('token');
 
   const handleLogout = () => {
     // Remove a cookie by setting the expiration date in the past
-    setCookie('token', null, { days: -1 });
+    setUserToken(null, { days: -1 });
     router.push('/');
   };
 
