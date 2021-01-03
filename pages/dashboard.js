@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import useSWR, { mutate } from 'swr';
 import DashboardContent from '../components/DashboardContent';
 import Spinner from '../components/UI/Spinner';
-import { setCookie } from '../utils/cookies';
+import { getCookie, setCookie } from '../utils/cookies';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
@@ -23,11 +23,21 @@ export default function Dashboard() {
   );
 
   useEffect(() => {
+    let token = null;
+
     if (data && data.token) {
-      setCookie('token', data.token, { maxAge: 3600 }); // expires in 1h
-      dispatch({ type: 'LOGIN', payload: { token: data.token } });
+      token = data.token;
       mutate('/api/current-spotify-user');
+      setCookie('token', token, { maxAge: 3600 }); // expires in 1h
       router.replace({ query: {} }); // Clean code query param
+    }
+
+    if (!token) {
+      token = getCookie('token');
+    }
+
+    if (token) {
+      dispatch({ type: 'LOGIN', payload: { token: token } });
     }
   });
 
