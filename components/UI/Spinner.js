@@ -1,6 +1,7 @@
 import React from 'react';
-import Image from 'next/image';
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFan } from '@fortawesome/free-solid-svg-icons';
 
 const StyledSpinner = styled.div`
   display: flex;
@@ -9,27 +10,10 @@ const StyledSpinner = styled.div`
   margin: 0.75rem;
 `;
 
-export default function Spinner({ size }) {
-  let width = 30;
-  switch (size) {
-    case 'medium':
-      width = 40;
-      break;
-    case 'large':
-      width = 74;
-      break;
-    default:
-      // small = 30;
-      break;
-  }
+export default function Spinner(props) {
   return (
     <StyledSpinner>
-      <Image
-        src="/static/icons/kappa-spinner.svg"
-        height={width}
-        width={width}
-        alt="Loading"
-      />
+      <FontAwesomeIcon icon={faFan} color="#1db954" size="2x" spin {...props} />
     </StyledSpinner>
   );
 }
