@@ -8,6 +8,8 @@ import fetcher from '../lib/fetcher';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css'; // Import the CSS
 import styled from 'styled-components';
+import { Provider } from 'react-redux';
+import { useStore } from '../store';
 
 const StyledApp = styled.div`
   padding-bottom: 3rem;
@@ -17,6 +19,8 @@ const StyledApp = styled.div`
 
 function MyApp({ Component, pageProps }) {
   config.autoAddCss = false; // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
+  const store = useStore(pageProps.initialReduxState);
+
   return (
     <>
       <Head>
@@ -36,8 +40,10 @@ function MyApp({ Component, pageProps }) {
             shouldRetryOnError: false,
           }}
         >
-          <AppHeader />
-          <Component {...pageProps} />
+          <Provider store={store}>
+            <AppHeader />
+            <Component {...pageProps} />
+          </Provider>
         </SWRConfig>
       </StyledApp>
     </>
