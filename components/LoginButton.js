@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
+import { Button } from './UI/Button.styles';
 
-export default function Index() {
+export default function Index(props) {
   const router = useRouter();
   const [shouldFetch, setShouldFetch] = useState(false);
   const { data, isValidating } = useSWR(
@@ -23,10 +24,8 @@ export default function Index() {
   }
 
   return (
-    <div>
-      <main>
-        <button onClick={handleLogin}>Login</button>
-      </main>
-    </div>
+    <Button {...props} onClick={handleLogin}>
+      {props.children || 'Connect your Spotify account'}
+    </Button>
   );
 }
