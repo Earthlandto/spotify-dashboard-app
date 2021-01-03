@@ -1,21 +1,19 @@
 import React, { useEffect } from 'react';
-import { useRouter } from 'next/router';
 import useSWR, { mutate } from 'swr';
 import DashboardContent from '../components/DashboardContent';
 import Spinner from '../components/UI/Spinner';
-import { getCookie, setCookie } from '../utils/cookies';
+import { setCookie } from '../utils/cookies';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { initializeStore } from '../store';
 
 const StyledDashboard = styled.main`
   margin-top: 3rem; /* header height */
   padding: 1.5rem 0 3rem;
 `;
 
-export default function Dashboard() {
-  const router = useRouter();
+export default function Dashboard({ code }) {
   const dispatch = useDispatch();
-  const { code } = router.query;
   const isSessionActive = useSelector((state) => state.isSessionActive);
 
   const { data, isValidating } = useSWR(
@@ -23,21 +21,10 @@ export default function Dashboard() {
   );
 
   useEffect(() => {
-    let token = null;
-
     if (data && data.token) {
-      token = data.token;
+      setCookie('token', data.token, { maxAge: 3600 }); // expires in 1h
+      dispatch({ type: 'LOGIN', payload: { token: data.token } });
       mutate('/api/current-spotify-user');
-      setCookie('token', token, { maxAge: 3600 }); // expires in 1h
-      router.replace({ query: {} }); // Clean code query param
-    }
-
-    if (!token) {
-      token = getCookie('token');
-    }
-
-    if (token) {
-      dispatch({ type: 'LOGIN', payload: { token: token } });
     }
   });
 
@@ -52,7 +39,11 @@ export default function Dashboard() {
   );
 }
 
-export async function getServerSideProps({ req, query }) {
+export async function getServerSideProps(context) {
+  const reduxStore = initializeStore();
+  const { dispatch } = reduxStore;
+
+  const { req, query } = context;
   const { code } = query;
   const { token } = req.cookies;
 
@@ -65,7 +56,17 @@ export async function getServerSideProps({ req, query }) {
     };
   }
 
+  if (token) {
+    dispatch({
+      type: 'LOGIN',
+      payload: { token },
+    });
+  }
+
   return {
-    props: {}, // will be passed to the page component as props
+    props: {
+      initialReduxState: reduxStore.getState(),
+      code: code || null,
+    }, // will be passed to the page component as props
   };
 }
