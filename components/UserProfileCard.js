@@ -2,6 +2,7 @@ import React from 'react';
 import useSWR from 'swr';
 import styled from 'styled-components';
 import LogoutButton from './LogoutButton';
+import { useSelector } from 'react-redux';
 
 const StyledUserProfileCard = styled.div`
   display: flex;
@@ -19,9 +20,14 @@ const ImageWrapper = styled.div`
 `;
 
 export default function UserProfileCard() {
-  const { data } = useSWR('/api/current-spotify-user', {
-    revalidateOnReconnect: true,
-  });
+  const isSessionActive = useSelector((state) => state.isSessionActive);
+
+  const { data } = useSWR(
+    isSessionActive ? '/api/current-spotify-user' : null,
+    {
+      revalidateOnReconnect: true,
+    }
+  );
 
   if (!data || !data.user) {
     return null;

@@ -1,6 +1,7 @@
 import React from 'react';
-import useCookie from 'react-use-cookie';
+import { removeCookie } from '../utils/cookies';
 import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
 const StyledLogoutButton = styled.button`
@@ -28,11 +29,11 @@ const StyledLogoutButton = styled.button`
 
 export default function LogoutButton({ children }) {
   const router = useRouter();
-  const [, setUserToken] = useCookie('token');
+  const dispatch = useDispatch();
 
   const handleLogout = () => {
-    // Remove a cookie by setting the expiration date in the past
-    setUserToken(null, { days: -1 });
+    dispatch({ type: 'LOGOUT' });
+    removeCookie('token');
     router.push('/');
   };
 

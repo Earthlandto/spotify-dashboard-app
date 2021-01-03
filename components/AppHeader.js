@@ -3,7 +3,6 @@ import UserProfileCard from './UserProfileCard';
 import LogoApp from './LogoApp';
 import styled from 'styled-components';
 import { rgba } from 'polished';
-import useCookie from 'react-use-cookie';
 
 const StyledAppHeader = styled.div`
   min-height: 3rem;
@@ -18,12 +17,10 @@ const StyledAppHeader = styled.div`
 `;
 
 export default function AppHeader() {
-  const [userToken] = useCookie('token');
-
   return (
     <StyledAppHeader>
       <LogoApp />
-      {userToken && <UserProfileCard />}
+      <UserProfileCard />
     </StyledAppHeader>
   );
 }
