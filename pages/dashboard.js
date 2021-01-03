@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import useSWR, { mutate } from 'swr';
 import DashboardContent from '../components/DashboardContent';
+import Spinner from '../components/UI/Spinner';
 import { setCookie } from '../utils/cookies';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
@@ -30,7 +31,7 @@ export default function Dashboard() {
     }
   });
 
-  const Loading = isValidating && <p>Loading...</p>;
+  const Loading = isValidating && <Spinner />;
   const Content = isSessionActive && <DashboardContent />;
 
   return (
