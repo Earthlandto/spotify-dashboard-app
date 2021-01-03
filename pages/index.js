@@ -1,11 +1,12 @@
 import React from 'react';
 import Link from 'next/link';
 import LoginButton from '../components/LoginButton';
-import useCookie from 'react-use-cookie';
+import { useSelector } from 'react-redux';
 
 export default function Index() {
-  const [userToken] = useCookie('token', '');
-  const Content = userToken ? (
+  const isSessionActive = useSelector((state) => state.isSessionActive);
+
+  const Content = isSessionActive ? (
     <Link href="/dashboard">Go to your dashboard</Link>
   ) : (
     <LoginButton />
