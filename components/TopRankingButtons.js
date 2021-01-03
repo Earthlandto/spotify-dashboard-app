@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyledInput, StyledLabel, StyledSelect } from './UI/Input.styled';
+import { StyledInput, StyledLabel, StyledSelect } from './UI/Input.styles';
 import { PERIODS, PERIOD_MESSAGES } from '../constants/spotify';
 import styled from 'styled-components';
 
