@@ -51,3 +51,21 @@ export default function Dashboard() {
     </StyledDashboard>
   );
 }
+
+export async function getServerSideProps({ req, query }) {
+  const { code } = query;
+  const { token } = req.cookies;
+
+  if (!code && !token) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {}, // will be passed to the page component as props
+  };
+}
