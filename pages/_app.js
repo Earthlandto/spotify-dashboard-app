@@ -12,7 +12,6 @@ import { Provider } from 'react-redux';
 import { useStore } from '../store';
 
 const StyledApp = styled.div`
-  padding-bottom: 3rem;
   background-color: #2e2e2e;
   color: white;
 `;

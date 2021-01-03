@@ -4,6 +4,12 @@ import useSWR, { mutate } from 'swr';
 import DashboardContent from '../components/DashboardContent';
 import { setCookie } from '../utils/cookies';
 import { useSelector, useDispatch } from 'react-redux';
+import styled from 'styled-components';
+
+const StyledDashboard = styled.main`
+  margin-top: 3rem; /* header height */
+  padding: 1.5rem 0 3rem;
+`;
 
 export default function Dashboard() {
   const router = useRouter();
@@ -28,9 +34,9 @@ export default function Dashboard() {
   const Content = isSessionActive && <DashboardContent />;
 
   return (
-    <main>
+    <StyledDashboard>
       {Loading}
       {Content}
-    </main>
+    </StyledDashboard>
   );
 }

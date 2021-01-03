@@ -23,7 +23,7 @@ export default function LogoApp() {
           alt="Spotify Dashboard app"
           height={18}
           width={18}
-          src={'/static/icons/spotify-dashboard-icon.png'}
+          src="/static/icons/spotify-dashboard-icon.png"
         />
         <StyledTitle>Dashtify</StyledTitle>
       </StyledLogoApp>

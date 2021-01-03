@@ -33,7 +33,7 @@ const StyledRankings = styled.div`
 
 export default function DashboardContent() {
   return (
-    <>
+    <div>
       <StyledTitle as="h1">
         Your <strong>Spotify</strong> Dashboard
       </StyledTitle>
@@ -44,6 +44,6 @@ export default function DashboardContent() {
         <TopTracks />
         <TopArtists />
       </StyledRankings>
-    </>
+    </div>
   );
 }
