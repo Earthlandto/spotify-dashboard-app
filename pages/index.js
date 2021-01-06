@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpotify } from '@fortawesome/free-brands-svg-icons';
 import { faHeartbeat } from '@fortawesome/free-solid-svg-icons';
+import { initializeStore } from '../store';
 
 const StyledMain = styled.main`
   height: 100vh;
@@ -66,4 +67,23 @@ export default function Index() {
       {Content}
     </StyledMain>
   );
+}
+
+export async function getServerSideProps(context) {
+  const reduxStore = initializeStore();
+  const { dispatch } = reduxStore;
+  const { token } = context.req.cookies;
+
+  if (token) {
+    dispatch({
+      type: 'LOGIN',
+      payload: { token },
+    });
+  }
+
+  return {
+    props: {
+      initialReduxState: reduxStore.getState(),
+    }, // will be passed to the page component as props
+  };
 }
