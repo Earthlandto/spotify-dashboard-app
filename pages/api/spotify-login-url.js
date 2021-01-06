@@ -1,6 +1,7 @@
 import querystring from 'querystring';
 import { REDIRECT_URI } from '../../constants/spotify';
 
+// TODO: This might be stored in a config or constant file
 const scopes = [
   'user-read-private',
   'user-read-email',

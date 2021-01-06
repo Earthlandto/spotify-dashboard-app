@@ -7,9 +7,12 @@ export default async (req, res) => {
   if (!token) {
     return createUnauthorizedError(res);
   }
+
   const response = await getNowPlaying({ token });
 
   if (!response.ok || response.status === 204) {
+    // TODO: if the response is not OK, API should return an error and the client
+    // should deal with it by displaying "not playing" message
     return res.status(200).json({ isPlaying: false });
   }
 

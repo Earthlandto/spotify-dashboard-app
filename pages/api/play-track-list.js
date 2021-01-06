@@ -12,14 +12,12 @@ export default async (req, res) => {
   // Initial validation
   if (contextId && 'string' !== typeof contextId) {
     return createError(res, 400, {
-      status: 400,
       message: 'No valid context type',
     });
   }
 
   if (trackIds && !Array.isArray(trackIds)) {
     return createError(res, 400, {
-      status: 400,
       message: 'Track list must be an array',
     });
   }
@@ -27,7 +25,8 @@ export default async (req, res) => {
   const response = await playTrackList({ token, trackIds, contextId });
 
   if (!response.ok) {
-    return createError(res, response.status, response.error);
+    const { error } = await response.json();
+    return createError(res, response.status, error);
   }
 
   res.setHeader(

@@ -15,7 +15,8 @@ export default async (req, res) => {
   });
 
   if (!response.ok) {
-    return createError(res, response.status, response);
+    const { error } = await response.json();
+    return createError(res, response.status, error);
   }
 
   const { items } = await response.json();

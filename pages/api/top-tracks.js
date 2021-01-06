@@ -3,8 +3,8 @@ import { createError, createUnauthorizedError } from '../../utils/api-errors';
 
 export default async (req, res) => {
   const { period, limit } = req.query;
-
   const { token } = req.cookies;
+
   if (!token) {
     return createUnauthorizedError(res);
   }
@@ -14,11 +14,13 @@ export default async (req, res) => {
     limit,
     timeRange: period,
   });
-  const { items } = await response.json();
 
   if (!response.ok) {
-    return createError(res, response.status, response);
+    const { error } = await response.json();
+    return createError(res, response.status, error);
   }
+
+  const { items } = await response.json();
 
   const tracks = items.map((track) => ({
     artist: track.artists.map((_artist) => _artist.name).join(', '),

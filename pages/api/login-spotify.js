@@ -10,15 +10,15 @@ export default async (req, res) => {
   // Initial validation
   if (!code) {
     return createError(res, 400, {
-      status: 400,
-      message: 'Code is mandatory',
+      message: 'Spotify provided code is mandatory',
     });
   }
 
   const response = await login({ code, redirectUri });
 
   if (!response.ok) {
-    return createError(res, response.status, response.error);
+    const error = await response.json();
+    return createError(res, response.status, error);
   }
 
   const credentials = await response.json();
