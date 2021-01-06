@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import useSWR, { mutate } from 'swr';
 import DashboardContent from '../components/DashboardContent';
 import Spinner from '../components/UI/Spinner';
@@ -15,18 +15,22 @@ const StyledDashboard = styled.main`
 export default function Dashboard({ code }) {
   const dispatch = useDispatch();
   const isSessionActive = useSelector((state) => state.isSessionActive);
+  const [isCodeUSed, setIsCodeUsed] = useState(false);
 
   const { data, isValidating } = useSWR(
-    code && !isSessionActive ? `api/login-spotify?code=${code}` : null
+    code && !isSessionActive && !isCodeUSed
+      ? `api/login-spotify?code=${code}`
+      : null
   );
 
   useEffect(() => {
     if (data && data.token) {
+      setIsCodeUsed(true);
       setCookie('token', data.token, { maxAge: 3600 }); // expires in 1h
       dispatch({ type: 'LOGIN', payload: { token: data.token } });
       mutate('/api/current-spotify-user');
     }
-  });
+  }, [isCodeUSed, data, dispatch]);
 
   const Loading = isValidating && <Spinner />;
   const Content = isSessionActive && <DashboardContent />;
